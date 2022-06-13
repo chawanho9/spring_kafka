@@ -3,12 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
+<script>
+    $(document).ready(function(){
+        $('#test_btn').click(function(){
+            debugger;
+            var params =  {
+                jsonData : $('#test_data').val()
+            }
+            $.ajax({
+				type: "post",
+				url: "/main/requestKafka.do",
+				data: params
+			}).done(function(data){
+				debugger;
+				console.log(data)
+				$('#python').html(data.consumers.consumer_python);
+				//$('#cpp').html(data.cpp);
+				fn_addCSS();
+			});
+
+        })
+        function fn_addCSS(){
+            $('.perTag').parent().css({"color":"red"});
+        }
+    });
+</script>
 <p>
-    <span class="title">[문법]  : 텍스트 지정 = 특정 key 변수 호출</span><br>
-    파이썬 : <span  th:text="${consumer_python}">값없음</span><br>
-    씨쁠쁠 : <span  th:text="${consumer_cpp}">값없음</span><br>
+<h2>테스트 문장</h2>
+
+<textarea class="form-control" id="test_data" rows="3" style="height : 200px; width: 500px;"></textarea>
+<input type="button" id="test_btn" value="enter">
+
+<h3>객체명분석기ner</h3>
+    <div rows="3" class="form-control" style="height : 200px; width: auto; border:1px solid;">
+        <p class="language-bash" data-lang="bash" id="python"></p>
+    </div>
+
 </p>
 </body>
 </html>
