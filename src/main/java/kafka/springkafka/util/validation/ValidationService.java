@@ -14,10 +14,9 @@ public class ValidationService {
     public String dataValidation(String data){
 		/*String match = "[^\uAC00-\uD7A30-9a-zA-Z]";
 		data = data.replaceAll(match," ").trim();*/
+        data = data.replaceAll("\n", " ");
         data = data.replaceAll("\"", "");
         data = data.replaceAll("\'", "");
-        data = data.replaceAll("\n", " ");
-        System.out.println(data);
         return data;
     }
 

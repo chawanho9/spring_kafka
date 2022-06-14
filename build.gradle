@@ -26,6 +26,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 }
 
