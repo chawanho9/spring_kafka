@@ -28,24 +28,26 @@
     $(document).ready(function(){
         $('#test_btn').click(function(){
             var params =  {
-                jsonData : $('#input_data').val()
+                data : $('#input_data').val()
             }
             $.ajax({
                 type: "post",
                 url: "/main/requestKafka.do",
                 data: params
             }).done(function(data){
+                debugger;
                 console.log(data)
                 $('#python').html(data.consumers.consumer_python);
-                //$('#cpp').html(data.cpp);
+                $('#cpp').html(data.consumers.consumer_cpp);
                 fn_addCSS();
                 fn_getNames();
-                fn_PieChart();
+                //fn_PieChart();
             });
 
         })
         function fn_addCSS(){
             $('.perTag').parent().css({"color":"red"});
+            $('#cpp').children().css({"color":"red"});
         }
 
         function fn_getNames(){
@@ -57,20 +59,26 @@
 
             var split_names = fn_splitName(names);
             fn_rank(split_names);
+            /*fn_rank(names)*/
 
             console.log(names);
         }
 
         function fn_splitName(names){
+            var reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
             var split_names = new Array();
+
             for (var i = 0; i < names.length; i++) {
                 if (names[i].search(/\s/) != -1) {
                     var arr = names[i].split(" ");
                     for(var j = 0; j<arr.length; j++){
-                        split_names.push(arr[j]);
+                        var str = arr[j].replace(reg,'');
+                        console.log(str)
+                        split_names.push(str);
                     }
                 }else {
-                    split_names.push(names[i]);
+                    var str = names[i].replace(reg,'');
+                    split_names.push(str);
                 }
             }
             return split_names;
@@ -494,21 +502,21 @@
 
                     </div>
 
-                    <div class="row">
+                    <!--<div class="row">
 
-                        <!-- Output Data-->
+                        &lt;!&ndash; Output Data&ndash;&gt;
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
+                                &lt;!&ndash; Card Header - Dropdown &ndash;&gt;
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Output Data 1</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Output Data NER</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink5"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;fade-in"
                                             aria-labelledby="dropdownMenuLink6">
                                             <div class="dropdown-header">Dropdown Header:</div>
                                             <a class="dropdown-item" href="#">Action</a>
@@ -518,7 +526,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
+                                &lt;!&ndash; Card Body &ndash;&gt;
                                 <div class="card-body" id="python" >
                                     <p> Data from NER...</p>
 
@@ -526,10 +534,10 @@
                             </div>
                         </div>
 
-                        <!-- Pie Chart -->
+                        &lt;!&ndash; Pie Chart &ndash;&gt;
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
+                                &lt;!&ndash; Card Header - Dropdown &ndash;&gt;
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Output Data 2</h6>
@@ -538,7 +546,7 @@
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
                                             <a class="dropdown-item" href="#">Action</a>
@@ -548,13 +556,45 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
+                                &lt;!&ndash; Card Body &ndash;&gt;
                                 <div class="card-body chart-body">
                                     <p>Data From NER..</p>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
+
+                    <div class="row">
+
+                        <!-- Output Data-->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Output Data EduExtractor</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink6"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                             aria-labelledby="dropdownMenuLink6">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body" id="cpp" >
+                                    <p> Data from Education...</p>
+
+                                </div>
+                            </div>
+                        </div>
 
 
 

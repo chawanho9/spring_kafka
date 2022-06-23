@@ -55,6 +55,7 @@ public class KafkaMessageService {
          */
         while(true){
             if(cpp_cnt == cnt && python_cnt == cnt){
+                System.out.println("consumer return");
                 resultMap.put("consumer_python",consumer_python);
                 resultMap.put("consumer_cpp",consumer_cpp);
                 consumer_python = "";
@@ -94,10 +95,10 @@ public class KafkaMessageService {
      * @param headers header에 담긴 내용을 보여준다.
      * @param payload 넘어온 문자열에 대해 보여줌.
      */
-    @KafkaListener(topics = "ner-out", groupId = "cpp")
+    @KafkaListener(topics = "cpp-out", groupId = "cpp")
     public void listen2(@Headers MessageHeaders headers,@Payload String payload) {
         System.out.println("Consume Headers : " + headers.toString() + "PayLoad : " + payload);
-        JSONParser parser = new JSONParser();
+/*        JSONParser parser = new JSONParser();
         Object obj = null;
         try {
             obj = parser.parse(payload);
@@ -107,6 +108,8 @@ public class KafkaMessageService {
         String result = obj.toString();
         result = result.replace("\\", "" );
         consumer_cpp += result;
+        */
+        consumer_cpp += payload;
         cpp_cnt ++;
     }
 }

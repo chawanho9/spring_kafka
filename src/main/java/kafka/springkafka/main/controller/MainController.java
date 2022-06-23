@@ -20,9 +20,10 @@ public class MainController {
     @ResponseBody
     public  Map<String, Object> requestKafka(@RequestParam Map<String, String> param){
         Map<String, Object> resultMap = new HashMap<>();
-        String data = param.get("jsonData").toString();
+        String data = param.get("data");
         Map<String,Object> resultMessage = kafkaMessageService.sendMessage("ner-in",data);
         resultMap.put("consumers",resultMessage);
         return resultMap;
     }
+
 }

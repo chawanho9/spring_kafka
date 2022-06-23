@@ -1,6 +1,6 @@
 
 function fn_PieChart(data){
-    debugger;
+
     var map_keys = new Array();
     var map_values = new Array();
     var cnt = 0;
